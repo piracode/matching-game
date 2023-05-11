@@ -1,0 +1,537 @@
+/*--------------------------------------------------------------
+# Base
+--------------------------------------------------------------*/
+:root {
+  --grey-color-dark: #777;
+  --grey-color-dark-2: #606060;
+  --grey-color-dark-3: #2a2a2a;
+  --primary-color: #f0a000;
+
+  --white-color: #fff;
+  --black-color: #000;
+  --red: #c30010;
+  --green: #059142;
+
+  --default-font-size: 1.2rem;
+
+  --border-radius-default: 1rem;
+}
+
+/* Typography
+  --------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Cinzel Decorative', sans-serif;
+  background-color: var(--black-color);
+  font-size: var(--default-font-size);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--color-grey-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1.75rem;
+  color: var(--white-color);
+}
+
+p {
+  line-height: 2;
+  color: var(--grey-color-dark-3);
+}
+
+/* Elements
+  --------------------------------------------- */
+
+/* Links
+  --------------------------------------------- */
+a,
+a:visited {
+  color: var(--grey-color-dark-3);
+  font-size: 2rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: 1px dotted;
+}
+
+/*--------------------------------------------------------------
+  # Layout
+  --------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  # Components
+  --------------------------------------------------------------*/
+
+.site-wrapper {
+  /* max-width: 120rem; */
+  max-width: 75rem;
+  margin: 0 auto;
+  background-color: var(--black-color);
+}
+
+/* Code copied from https://webaim.org/techniques/css/invisiblecontent/ This is to hide the H1 but keep it accessible for screen readers */
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ****************** Animations ***************** */
+
+/* starting code from here and then modified through other searches https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes */
+@keyframes logo-scale {
+  0% {
+    transform: scale(0, 0);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes pulse-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes revealH2 {
+  to {
+    left: 100%;
+  }
+}
+
+audio {
+  width: 150px;
+  height: 27px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.img-container {
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+.logo-animation {
+  animation-name: logo-scale;
+  animation-duration: 10s;
+  animation-fill-mode: forwards;
+}
+
+.starting-view {
+  background-color: var(--black-color);
+  width: 100%;
+  height: 100vh;
+}
+
+.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading-secondary {
+  text-align: center;
+  color: var(--white-color);
+}
+
+.heading-secondary-startingView::before,
+.heading-secondary-startingView::after {
+  position: absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.heading-secondary-startingView::before {
+  background-color: var(--primary-color);
+  animation: revealH2 8s ease forwards;
+}
+
+.heading-secondary-startingView {
+  letter-spacing: 5px;
+  position: relative;
+}
+
+.enter {
+  animation: pulse-animation 1.5s infinite;
+}
+
+.boardgame-view {
+  background-color: var(--black-color);
+}
+
+/* Game Container */
+
+.game-container {
+  background-image: url('../assets/images/boardgame-map-1.jpg');
+
+  background-size: cover;
+  width: 100%;
+  padding: 2rem;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    'a b c'
+    'd e f'
+    'g h i'
+    'j k l';
+
+  grid-auto-rows: auto;
+  gap: 5px;
+
+  position: absolute;
+  top: 25%;
+  left: 0;
+  right: 0;
+}
+
+@media (min-width: 62.5em) {
+  .game-container {
+    max-width: 60%;
+    margin: 0 auto;
+  }
+}
+
+.card-1 {
+  grid-area: a;
+}
+.card-2 {
+  grid-area: b;
+}
+.card-3 {
+  grid-area: c;
+}
+.card-4 {
+  grid-area: d;
+}
+.card-5 {
+  grid-area: e;
+}
+.card-6 {
+  grid-area: f;
+}
+.card-7 {
+  grid-area: g;
+}
+.card-8 {
+  grid-area: h;
+}
+.card-9 {
+  grid-area: i;
+}
+.card-10 {
+  grid-area: j;
+}
+.card-11 {
+  grid-area: k;
+}
+.card-12 {
+  grid-area: l;
+}
+
+.card {
+  aspect-ratio: 1/1;
+  position: relative;
+  perspective: 100rem;
+}
+.card-back,
+.card-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.flip .card-front {
+  transform: rotateY(-180deg);
+}
+
+.flip .card-back {
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  z-index: 1;
+}
+
+.flip {
+  transform: rotateY(-180deg);
+}
+
+.card-img {
+  border-radius: var(--border-radius-default);
+  border: solid 4px var(--primary-color);
+  box-shadow: 3px 3px 3px rgba(3, 3, 3, 0.3);
+}
+
+/* Lives container */
+.lives-container {
+  width: 15rem;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+
+  position: absolute;
+  right: 4%;
+  top: 18%;
+}
+
+.circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+.circle-life {
+  background-color: var(--black-color);
+}
+
+/* Stats container */
+
+.stats-container {
+  background-color: rgba(244, 237, 237, 0.9);
+  box-shadow: 3px 3px 3px rgba(255, 255, 255, 0.3);
+  /* border-radius: var(--border-radius-default); */
+  padding: 0 1rem 0 1rem;
+
+  position: absolute;
+  left: 2%;
+  top: 2%;
+}
+
+.heading-matches,
+.heading-guesses,
+.game-btn {
+  font-size: 1.2rem;
+}
+.heading-matches,
+.heading-guesses {
+  color: var(--black-color);
+}
+/* Start and End Buttons */
+.game-btn {
+  padding: 0 1rem 0 1rem;
+  /* border-radius: var(--border-radius-default); */
+  position: absolute;
+  cursor: pointer;
+}
+
+.start-btn {
+  background-color: var(--green);
+  box-shadow: 3px 3px 3px rgba(89, 246, 100, 0.3);
+  top: 2%;
+  right: 4%;
+}
+
+.exit-btn {
+  background-color: var(--red);
+  top: 8%;
+  right: 4%;
+}
+
+@media (min-width: 29em) {
+  .circle {
+    width: 3rem;
+    height: 3rem;
+  }
+  .lives-container {
+    width: 22rem;
+    top: 12%;
+  }
+  .exit-btn {
+    top: 2%;
+    right: 32%;
+  }
+
+  .game-container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      'a b c d'
+      'e f g h'
+      'i j k l';
+  }
+}
+
+@media (min-width: 62.5em) {
+  .exit-btn {
+    right: 4%;
+    top: 10%;
+  }
+
+  .boardgame-view .lives-container {
+    display: block;
+    width: fit-content;
+    top: 25%;
+    right: 7%;
+  }
+
+  .boardgame-view .logo-secondaryView {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+/************************** Section game over / congrats view************************* */
+
+.back-to-start {
+  background-color: var(--white-color);
+  font-weight: 700;
+  padding: 0.3rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 2px solid var(--primary-color);
+  cursor: pointer;
+}
+.gameOver-view,
+.congrats-view {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameOver-container,
+.congratsView-container {
+  width: 30rem;
+  background-color: #000;
+  padding: 2rem 1rem;
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+.gameOver-container {
+  box-shadow: 0.5rem 0.5rem 0.5rem rgba(255, 184, 184, 0.3);
+}
+section.congrats-view,
+section.gameOver-view {
+  display: none;
+  /* display: flex; */
+}
+
+.congrats-view {
+  background-image: url('../assets/images/congrats.jpg');
+}
+
+.gameOver-view {
+  background-image: url('../assets/images/game-over.jpg');
+}
+
+.secondary-heading-gameover,
+.secondary-heading-congrats {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.secondary-heading-congrats {
+  color: var(--green);
+}
+
+.secondary-heading-gameover {
+  color: var(--red);
+}
+
+.tertiary-heading-gameover {
+  margin-bottom: 2rem;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.playAgain-btn,
+.quit-btn {
+  /* font-size: 2rem; */
+  width: 8rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.playAgain-btn {
+  background-color: var(--green);
+  box-shadow: 3px 3px 3px rgba(89, 246, 100, 0.3);
+}
+
+.quit-btn {
+  background-color: var(--red);
+  box-shadow: 3px 3px 3px rgba(246, 89, 89, 0.3);
+}
+/* 
+.quit-btn a {
+  color: var(--white-color);
+  text-decoration: none;
+} */
+
+.credits-view {
+  /* display: flex; */
+  display: none;
+  height: 100vh;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  justify-content: center;
+}
+
+.credits-container {
+  color: var(--white-color);
+  font-family: 'IM Fell Great Primer SC', sans-serif;
+  margin: auto 0;
+  max-width: 500px;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.heading-secondary-credits {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.logo-secondaryView {
+  display: none;
+}
